@@ -59,6 +59,28 @@ double tinhTongKichThuoc(FileNode *head) {
     return tongKichThuoc;
 }
 
+
+FileNode* insertionSort(FileNode *head) {
+	if(!head||!head->next) return head;
+	FileNode *sorted= nullptr;
+	FileNode *current= head;
+	while (current) {
+		FileNode *nextNode = current->next;
+		if(sorted||current->Size < sorted->Size) {
+			current->next = sorted;
+            sorted = current;
+		}
+		else {
+			FileNode *temp = sorted;
+            while (temp->next && temp->next->Size < current->Size) {
+                temp = temp->next;
+            }
+		}
+		current = nextNode;
+	} 
+	return sorted;
+}
+
 // Sao luu cac file vao USB voi gioi han dung luong
 void saoLuuUSB(FileNode **head, double USB_SIZE_LIMIT) {
     double kichThuocHienTai = tinhTongKichThuoc(*head);
